@@ -25,7 +25,10 @@ namespace LD47 {
 
 		public static void Pool(Ghost ghost) {
 			if (!instance._poolContainer) instance._poolContainer = new GameObject("GhostPool").ParentedTo(instance.transform).transform;
-			ghost.transform.SetParent(instance._poolContainer);
+			ghost.Reinitialize();
+			var ghostTransform = ghost.transform;
+			ghostTransform.SetParent(instance._poolContainer);
+			ghostTransform.position = Vector3.zero;
 			ghost.gameObject.SetActive(false);
 			instance.pool.Enqueue(ghost);
 		}

@@ -9,6 +9,7 @@ namespace LD47 {
 		[SerializeField] protected Vector3    _pickedOffset;
 		[SerializeField] protected Quaternion _pickedRotation;
 		[SerializeField] protected Rigidbody  _rigidbody;
+		[SerializeField] protected Collider   _collider;
 
 		private new Transform transform { get; set; }
 		public      bool      pickedUp  { get; private set; }
@@ -16,19 +17,24 @@ namespace LD47 {
 
 		private void Awake() => transform = base.transform;
 
+		public Event onPickedUp { get; } = new Event();
+
 		public void Pickup(Transform newParent) {
+			_collider.enabled = false;
 			transform.SetParent(newParent);
 			_rigidbody.isKinematic = true;
-			transform.localPosition = Vector3.zero;
-			transform.localRotation = Quaternion.identity;
+			transform.localPosition = _pickedOffset;
+			transform.localRotation = _pickedRotation;
 			pickedUp = true;
+			onPickedUp.Invoke(this);
 		}
 
 		public void Throw(Vector3 force) {
 			transform.SetParent(null);
-			_rigidbody.AddForce(force);
 			_rigidbody.isKinematic = false;
 			pickedUp = false;
+			_collider.enabled = true;
+			_rigidbody.AddForce(force);
 		}
 
 		[ContextMenu("Get picked data from current transform values")]

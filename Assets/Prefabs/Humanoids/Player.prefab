@@ -15,6 +15,8 @@ MonoBehaviour:
   _record:
     _movementRecords: []
     _jumpRecords: []
+    _pickUpOrDropRecords: []
+    _throwRecords: []
 --- !u!114 &8566674297486548317
 MonoBehaviour:
   m_ObjectHideFlags: 0

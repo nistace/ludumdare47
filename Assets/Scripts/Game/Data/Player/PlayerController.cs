@@ -7,11 +7,15 @@ namespace LD47 {
 		[SerializeField] protected Humanoid            _humanoid;
 		[SerializeField] protected PlayerInputRecorder _recorder;
 
-		public Humanoid            humanoid      => _humanoid;
-		public PickUpableChecker   pickablesArea => humanoid.pickablesArea;
-		public PlayerInputRecorder recorder      => _recorder;
+		public  Humanoid            humanoid      => _humanoid;
+		private PickUpableChecker   pickablesArea => humanoid.pickablesArea;
+		public  PlayerInputRecorder recorder      => _recorder;
 
-		public UnityEvent onInput { get; } = new UnityEvent();
+		public UnityEvent       onInput            { get; } = new UnityEvent();
+		public PickUpable.Event onObjectPickable   { get; } = new PickUpable.Event();
+		public UnityEvent       onNoObjectPickable { get; } = new UnityEvent();
+		public PickUpable.Event onObjectPickedUp   { get; } = new PickUpable.Event();
+		public UnityEvent       onObjectDropped    { get; } = new UnityEvent();
 
 		private void Start() => SetListeners(true);
 		private void OnDestroy() => SetListeners(false);
@@ -24,19 +28,31 @@ namespace LD47 {
 		private void OnDisable() => SetListenersEnabled(false);
 
 		private void SetListeners(bool enabled) {
-			pickablesArea.onPickableInArea.AddListenerOnce(HandlePickAreaChanged);
-			pickablesArea.onPickableExitArea.AddListenerOnce(HandlePickAreaChanged);
+			pickablesArea.onPickableInArea.AddListenerOnce(HandleObjectPickable);
+			pickablesArea.onPickableExitArea.AddListenerOnce(HandleObjectNotPickable);
 			Inputs.controls.Player.Movement.SetAnyListenerOnce(HandleMovement, enabled);
 			Inputs.controls.Player.Jump.SetPerformListenerOnce(HandleJump, enabled);
+			Inputs.controls.Player.PickUp.SetPerformListenerOnce(HandlePickUp, enabled);
+			Inputs.controls.Player.Throw.SetPerformListenerOnce(HandleThrow, enabled);
 		}
 
-		private void HandlePickAreaChanged(PickUpable arg0) {
-			Debug.Log(pickablesArea.count + " objects to be picked");
+		private void HandleObjectPickable(PickUpable pickable) {
+			if (_humanoid.pickedObject) return;
+			onObjectPickable.Invoke(pickable);
+		}
+
+		private void HandleObjectNotPickable(PickUpable _) {
+			if (_humanoid.pickedObject) return;
+			var pickableObject = pickablesArea.any;
+			if (pickableObject) onObjectPickable.Invoke(pickableObject);
+			else onNoObjectPickable.Invoke();
 		}
 
 		private static void SetListenersEnabled(bool enabled) {
 			Inputs.controls.Player.Movement.SetEnabled(enabled);
 			Inputs.controls.Player.Jump.SetEnabled(enabled);
+			Inputs.controls.Player.PickUp.SetEnabled(enabled);
+			Inputs.controls.Player.Throw.SetEnabled(enabled);
 		}
 
 		private void HandleJump(InputAction.CallbackContext obj) {
@@ -51,6 +67,26 @@ namespace LD47 {
 			}
 			_humanoid.SetMovement(movementInput);
 			if (movementInput != Vector2.zero) onInput.Invoke();
+		}
+
+		private void HandlePickUp(InputAction.CallbackContext obj) {
+			if (!_humanoid.PickUpOrDrop()) return;
+			onInput.Invoke();
+			if (humanoid.pickedObject) {
+				onObjectPickedUp.Invoke(humanoid.pickedObject);
+				onNoObjectPickable.Invoke();
+			}
+			else {
+				onObjectDropped.Invoke();
+				if (pickablesArea.anyPickable) onObjectPickable.Invoke(pickablesArea.any);
+			}
+		}
+
+		private void HandleThrow(InputAction.CallbackContext obj) {
+			if (!_humanoid.Throw()) return;
+			onInput.Invoke();
+			onObjectDropped.Invoke();
+			if (pickablesArea.anyPickable) onObjectPickable.Invoke(pickablesArea.any);
 		}
 
 		public void Reinitialize() {

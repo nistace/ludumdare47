@@ -10,14 +10,16 @@ namespace LD47 {
 			_record.Progress(TimeManager.currentLoopTime);
 			if (_record.movementUpdated) _humanoid.SetMovement(_record.movementInput);
 			if (_record.jumpTriggered) _humanoid.Jump();
+			if (_record.pickUpOrDropTriggered) _humanoid.PickUpOrDrop();
+			if (_record.throwTriggered) _humanoid.Throw();
 		}
 
 		public void Initialise(GhostRecord record) {
 			_record = record;
-			ResetForNextLoop();
+			Reinitialize();
 		}
 
-		public void ResetForNextLoop() {
+		public void Reinitialize() {
 			_humanoid.Reinitialize();
 			_record.Reinitialize();
 		}

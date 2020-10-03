@@ -15,6 +15,7 @@ namespace LD47 {
 		}
 
 		private void Reinitialize() {
+			transform.SetParent(null);
 			transform.position = _position;
 			transform.rotation = _rotation;
 			if (!_rigidbody) return;

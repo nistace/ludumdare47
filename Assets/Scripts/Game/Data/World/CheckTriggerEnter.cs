@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +19,12 @@ namespace LD47 {
 		private void OnTriggerExit(Collider other) {
 			if (!objectsInTrigger.Contains(other.gameObject)) return;
 			objectsInTrigger.Remove(other.gameObject);
+			onSomethingExited.Invoke();
+		}
+
+		public void Reinitialize() {
+			if (objectsInTrigger.Count <= 0) return;
+			objectsInTrigger.Clear();
 			onSomethingExited.Invoke();
 		}
 	}

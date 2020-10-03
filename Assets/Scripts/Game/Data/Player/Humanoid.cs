@@ -14,7 +14,11 @@ namespace LD47 {
 		[SerializeField] protected Vector3           _acceleration;
 		[SerializeField] protected PickUpableChecker _pickablesArea;
 		[SerializeField] protected PickUpable        _pickedObject;
+		[SerializeField] protected Transform         _pickUpAnchor;
+		[SerializeField] protected float             _throwForce = 2000;
+		[SerializeField] protected float             _throwAngle = 1;
 
+		public  PickUpable        pickedObject        => _pickedObject;
 		public  PickUpableChecker pickablesArea       => _pickablesArea;
 		public  bool              waitForZeroMovement { get; set; }
 		public  Vector3           movementInput       { get; set; }
@@ -35,10 +39,15 @@ namespace LD47 {
 			var currentVelocity = _rigidbody.velocity;
 			var expectedMovement = Vector3.SmoothDamp(currentVelocity, movementInput.With(y: currentVelocity.y), ref _acceleration,
 				_onGroundChecker.check ? _speedSmoothnessOnGround : _speedSmoothnessInAir);
-			_rigidbody.velocity = !_onGroundChecker.check && _rigidbody.SweepTest(expectedMovement.With(y: 0), out _, expectedMovement.magnitude * Time.fixedDeltaTime)
-				? new Vector3(0, _rigidbody.velocity.y, 0)
-				: expectedMovement;
+			_rigidbody.velocity = CheckImminentCollisionWithWalls(expectedMovement);
 			if (movementInput != Vector3.zero) transform.forward = movementInput;
+		}
+
+		private Vector3 CheckImminentCollisionWithWalls(Vector3 expectedMovement) {
+			if (_onGroundChecker.check) return expectedMovement;
+			if (!_rigidbody.SweepTest(expectedMovement.With(y: 0), out var hit, expectedMovement.magnitude * Time.fixedDeltaTime)) return expectedMovement;
+			if (hit.collider.gameObject.layer != LayerMask.GetMask("Ground")) return expectedMovement;
+			return new Vector3(0, _rigidbody.velocity.y, 0);
 		}
 
 		public void SetMovement(Vector2 movementInput) {
@@ -52,6 +61,32 @@ namespace LD47 {
 			return true;
 		}
 
+		public bool PickUpOrDrop() {
+			if (_pickedObject) {
+				ThrowPickedObject(Vector3.zero);
+				return true;
+			}
+			if (!pickablesArea.anyPickable) return false;
+			_animator.SetPickUp();
+			_pickedObject = pickablesArea.any;
+			_pickedObject.Pickup(_pickUpAnchor);
+			_animator.SetCarriesObject(true);
+			return true;
+		}
+
+		public bool Throw() {
+			if (!_pickedObject) return false;
+			ThrowPickedObject((transform.forward + _throwAngle * Vector3.up).normalized * _throwForce);
+			return true;
+		}
+
+		private void ThrowPickedObject(Vector3 force) {
+			_pickedObject.Throw(force);
+			_animator.SetThrow();
+			_animator.SetCarriesObject(false);
+			_pickedObject = null;
+		}
+
 		private void CheckAlive() {
 			if (transform.position.y >= _minTransformY) return;
 			dead = true;
@@ -63,6 +98,10 @@ namespace LD47 {
 			movementInput = Vector3.zero;
 			_rigidbody.velocity = Vector3.zero;
 			_rigidbody.angularVelocity = Vector3.zero;
+			if (_pickedObject) _pickedObject.Throw(Vector3.zero);
+			_pickedObject = null;
+			_animator.SetCarriesObject(false);
+			_pickablesArea.Reinitialize();
 		}
 	}
 }

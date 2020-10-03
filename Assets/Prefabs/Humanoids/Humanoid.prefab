@@ -217,6 +217,9 @@ MonoBehaviour:
   _acceleration: {x: 0, y: 0, z: 0}
   _pickablesArea: {fileID: 2960200681038474540}
   _pickedObject: {fileID: 0}
+  _pickUpAnchor: {fileID: 6765220556523772271}
+  _throwForce: 500
+  _throwAngle: 1
 --- !u!1001 &8479427290404792353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +338,12 @@ Transform:
 --- !u!95 &2649928130127730096 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ebb42fe93517ac44cb9f955fa0307430,
+    type: 3}
+  m_PrefabInstance: {fileID: 8479427290404792353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6765220556523772271 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6319079754501607090, guid: ebb42fe93517ac44cb9f955fa0307430,
     type: 3}
   m_PrefabInstance: {fileID: 8479427290404792353}
   m_PrefabAsset: {fileID: 0}

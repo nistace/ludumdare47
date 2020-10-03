@@ -17,7 +17,10 @@ namespace LD47 {
 		private List<Ghost> ghosts        { get; } = new List<Ghost>();
 		private GhostRecord currentRecord { get; set; }
 
-		private void Start() => Start(true);
+		private void Start() {
+			Start(true);
+			_ui.SetPlayer(_player);
+		}
 
 		private void Start(bool first) {
 			_player.enabled = false;
@@ -60,11 +63,12 @@ namespace LD47 {
 			TimeManager.StopLoop(false);
 			foreach (var ghost in ghosts) {
 				ghost.transform.position = _spawn.position;
-				ghost.ResetForNextLoop();
+				ghost.Reinitialize();
 			}
 			_player.transform.position = _spawn.position;
 			_player.Reinitialize();
 			_player.onInput.AddListenerOnce(StartLoop);
+			FindObjectsOfType<CheckTriggerEnter>().ForEach(t => t.Reinitialize());
 			currentRecord = _player.recorder.Reinitialize();
 			Inputs.controls.Game.EndLoop.SetEnabled(false);
 		}
@@ -77,6 +81,8 @@ namespace LD47 {
 
 		private void HandleExitReached() {
 			TimeManager.StopLoop(false);
+			ghosts.ForEach(GhostManager.Pool);
+			ghosts.Clear();
 			SceneManager.LoadScene(_nextScene);
 		}
 
