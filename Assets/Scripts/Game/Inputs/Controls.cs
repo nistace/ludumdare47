@@ -35,6 +35,22 @@ namespace LD47
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""5711c03b-606f-4ffc-ad49-ae8eb8eaa69b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""e29f04ae-687a-449f-99cb-0f5c784b4c0d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -101,6 +117,28 @@ namespace LD47
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ffc78a8-45c3-4b24-830e-5555574e574b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75beccaa-9126-47d6-8fa9-e3b09c08ea9f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -178,6 +216,8 @@ namespace LD47
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
+            m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
             // Game
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
             m_Game_EndLoop = m_Game.FindAction("EndLoop", throwIfNotFound: true);
@@ -234,12 +274,16 @@ namespace LD47
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Movement;
         private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_PickUp;
+        private readonly InputAction m_Player_Throw;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
             public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
+            public InputAction @Throw => m_Wrapper.m_Player_Throw;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -255,6 +299,12 @@ namespace LD47
                     @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    @PickUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
+                    @PickUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
+                    @PickUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
+                    @Throw.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                    @Throw.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                    @Throw.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -265,6 +315,12 @@ namespace LD47
                     @Jump.started += instance.OnJump;
                     @Jump.performed += instance.OnJump;
                     @Jump.canceled += instance.OnJump;
+                    @PickUp.started += instance.OnPickUp;
+                    @PickUp.performed += instance.OnPickUp;
+                    @PickUp.canceled += instance.OnPickUp;
+                    @Throw.started += instance.OnThrow;
+                    @Throw.performed += instance.OnThrow;
+                    @Throw.canceled += instance.OnThrow;
                 }
             }
         }
@@ -322,6 +378,8 @@ namespace LD47
         {
             void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnPickUp(InputAction.CallbackContext context);
+            void OnThrow(InputAction.CallbackContext context);
         }
         public interface IGameActions
         {

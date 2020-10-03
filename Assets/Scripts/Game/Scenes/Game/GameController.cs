@@ -4,17 +4,15 @@ using LD47.Ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace LD47 {
 	public class GameController : MonoBehaviour {
-		[FormerlySerializedAs("_playerController")] [SerializeField] protected PlayerController  _player;
-		[SerializeField]                                             protected Ghost             _ghostPrefab;
-		[SerializeField]                                             protected Transform         _spawn;
-		[SerializeField]                                             protected CheckTriggerEnter _exit;
-		[SerializeField]                                             protected string            _nextScene;
-		[SerializeField]                                             protected CameraStates      _camera;
-		[SerializeField]                                             protected GameUi            _ui;
+		[SerializeField] protected PlayerController  _player;
+		[SerializeField] protected Transform         _spawn;
+		[SerializeField] protected CheckTriggerEnter _exit;
+		[SerializeField] protected string            _nextScene;
+		[SerializeField] protected CameraStates      _camera;
+		[SerializeField] protected GameUi            _ui;
 
 		private List<Ghost> ghosts        { get; } = new List<Ghost>();
 		private GhostRecord currentRecord { get; set; }
@@ -33,7 +31,7 @@ namespace LD47 {
 
 		private void RestartLevel(InputAction.CallbackContext obj) {
 			TimeManager.StopLoop(true);
-			ghosts.ForEach(t => Destroy(t.gameObject));
+			ghosts.ForEach(GhostManager.Pool);
 			ghosts.Clear();
 			Start(false);
 		}
@@ -86,7 +84,7 @@ namespace LD47 {
 		private static void IntentionalStopLoop() => TimeManager.StopLoop(true);
 
 		private void EndLoop() {
-			var newGhost = Instantiate(_ghostPrefab);
+			var newGhost = GhostManager.Instantiate();
 			newGhost.Initialise(currentRecord);
 			ghosts.Add(newGhost);
 			Reset();

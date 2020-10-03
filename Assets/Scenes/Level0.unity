@@ -377,36 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a1075f1717c264b9c70205cd778969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &797822939
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 797822940}
-  m_Layer: 0
-  m_Name: PlayView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &797822940
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797822939}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993371184
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,18 +619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153f759d418d89740851e00fab5b2c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2125819426 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5628970336934389068, guid: 2b40880e88206904e9d79fb96d003688,
-    type: 3}
-  m_PrefabInstance: {fileID: 2125819424}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afb8a0b9cb945bfad0fd90906fbb497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2125819427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6591716939226361566, guid: 2b40880e88206904e9d79fb96d003688,
@@ -753,7 +711,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 2125819426}
+      objectReference: {fileID: 2125819425}
     - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: _spawn

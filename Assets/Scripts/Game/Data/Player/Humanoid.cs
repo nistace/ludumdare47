@@ -3,19 +3,22 @@ using UnityEngine.Events;
 
 namespace LD47 {
 	public class Humanoid : MonoBehaviour {
-		[SerializeField] protected Rigidbody        _rigidbody;
-		[SerializeField] protected float            _jumpForce = 50;
-		[SerializeField] protected OnGroundChecker  _onGroundChecker;
-		[SerializeField] protected HumanoidAnimator _animator;
-		[SerializeField] protected float            _movementSpeed;
-		[SerializeField] protected float            _minTransformY           = -5;
-		[SerializeField] protected float            _speedSmoothnessOnGround = .2f;
-		[SerializeField] protected float            _speedSmoothnessInAir    = 1f;
-		[SerializeField] protected Vector3          _acceleration;
+		[SerializeField] protected Rigidbody         _rigidbody;
+		[SerializeField] protected float             _jumpForce = 50;
+		[SerializeField] protected OnGroundChecker   _onGroundChecker;
+		[SerializeField] protected HumanoidAnimator  _animator;
+		[SerializeField] protected float             _movementSpeed;
+		[SerializeField] protected float             _minTransformY           = -5;
+		[SerializeField] protected float             _speedSmoothnessOnGround = .2f;
+		[SerializeField] protected float             _speedSmoothnessInAir    = 1f;
+		[SerializeField] protected Vector3           _acceleration;
+		[SerializeField] protected PickUpableChecker _pickablesArea;
+		[SerializeField] protected PickUpable        _pickedObject;
 
-		public  bool    waitForZeroMovement { get; set; }
-		public  Vector3 movementInput       { get; set; }
-		private bool    dead                { get; set; }
+		public  PickUpableChecker pickablesArea       => _pickablesArea;
+		public  bool              waitForZeroMovement { get; set; }
+		public  Vector3           movementInput       { get; set; }
+		private bool              dead                { get; set; }
 
 		public UnityEvent onDie { get; } = new UnityEvent();
 

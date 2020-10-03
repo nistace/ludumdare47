@@ -7,8 +7,9 @@ namespace LD47 {
 		[SerializeField] protected Humanoid            _humanoid;
 		[SerializeField] protected PlayerInputRecorder _recorder;
 
-		public Humanoid            humanoid => _humanoid;
-		public PlayerInputRecorder recorder => _recorder;
+		public Humanoid            humanoid      => _humanoid;
+		public PickUpableChecker   pickablesArea => humanoid.pickablesArea;
+		public PlayerInputRecorder recorder      => _recorder;
 
 		public UnityEvent onInput { get; } = new UnityEvent();
 
@@ -23,8 +24,14 @@ namespace LD47 {
 		private void OnDisable() => SetListenersEnabled(false);
 
 		private void SetListeners(bool enabled) {
+			pickablesArea.onPickableInArea.AddListenerOnce(HandlePickAreaChanged);
+			pickablesArea.onPickableExitArea.AddListenerOnce(HandlePickAreaChanged);
 			Inputs.controls.Player.Movement.SetAnyListenerOnce(HandleMovement, enabled);
 			Inputs.controls.Player.Jump.SetPerformListenerOnce(HandleJump, enabled);
+		}
+
+		private void HandlePickAreaChanged(PickUpable arg0) {
+			Debug.Log(pickablesArea.count + " objects to be picked");
 		}
 
 		private static void SetListenersEnabled(bool enabled) {
