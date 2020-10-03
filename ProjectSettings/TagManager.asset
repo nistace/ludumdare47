@@ -14,11 +14,11 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GroundChecker
+  - Ground
+  - Player
+  - Ghost
+  - Exit
   - 
   - 
   - 
