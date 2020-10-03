@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643f035f370946d88806e532908e4560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 5481093304564517246}
+  _humanoid: {fileID: 4328318900911671070}
   _record:
-    _stepsPerTimeInLoop: []
-  _recordStep: 0
+    _movementRecords: []
+    _jumpRecords: []
 --- !u!1001 &3375027426303557944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,11 +78,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8479427289921449959, guid: c17c3205df7c7054ebe26db0fbecdaf7,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8479427289921449977, guid: c17c3205df7c7054ebe26db0fbecdaf7,
         type: 3}
       propertyPath: m_Name
@@ -111,15 +106,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3375027426303557944}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5481093304564517246 stripped
+--- !u!114 &4328318900911671070 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7117447463129139270, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+  m_CorrespondingSourceObject: {fileID: -7870103520694417882, guid: c17c3205df7c7054ebe26db0fbecdaf7,
     type: 3}
   m_PrefabInstance: {fileID: 3375027426303557944}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6591716939226361537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c84576e4f44261b51adb66dc5ae222, type: 3}
+  m_Script: {fileID: 11500000, guid: 83fafccb54b942a0bf84942fce1914d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

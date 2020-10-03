@@ -24,7 +24,7 @@ namespace LD47 {
 		public static void StartLoop() {
 			currentLoopTime = 0;
 			playing = true;
-			startTime = Time.time;
+			startTime = Time.fixedTime;
 		}
 
 		public static void StopLoop(bool notify) {
@@ -37,7 +37,7 @@ namespace LD47 {
 
 		private void Update() {
 			if (!playing) return;
-			currentLoopTime = Time.time - startTime;
+			currentLoopTime = Time.fixedTime - startTime;
 			if (currentLoopTime >= _loopTime) StopLoop(true);
 		}
 

@@ -4,17 +4,17 @@ using LD47.Ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace LD47 {
 	public class GameController : MonoBehaviour {
-		[SerializeField] protected PlayerController  _playerController;
-		[SerializeField] protected GhostRecorder     _player;
-		[SerializeField] protected Ghost             _ghostPrefab;
-		[SerializeField] protected Transform         _spawn;
-		[SerializeField] protected CheckTriggerEnter _exit;
-		[SerializeField] protected string            _nextScene;
-		[SerializeField] protected CameraStates      _camera;
-		[SerializeField] protected GameUi            _ui;
+		[FormerlySerializedAs("_playerController")] [SerializeField] protected PlayerController  _player;
+		[SerializeField]                                             protected Ghost             _ghostPrefab;
+		[SerializeField]                                             protected Transform         _spawn;
+		[SerializeField]                                             protected CheckTriggerEnter _exit;
+		[SerializeField]                                             protected string            _nextScene;
+		[SerializeField]                                             protected CameraStates      _camera;
+		[SerializeField]                                             protected GameUi            _ui;
 
 		private List<Ghost> ghosts        { get; } = new List<Ghost>();
 		private GhostRecord currentRecord { get; set; }
@@ -22,7 +22,7 @@ namespace LD47 {
 		private void Start() => Start(true);
 
 		private void Start(bool first) {
-			_playerController.enabled = false;
+			_player.enabled = false;
 			_camera.MoveToAerialView(first);
 			Reset();
 			TimeManager.ResetAllRunsTime();
@@ -32,7 +32,7 @@ namespace LD47 {
 		}
 
 		private void RestartLevel(InputAction.CallbackContext obj) {
-			TimeManager.StopLoop(false);
+			TimeManager.StopLoop(true);
 			ghosts.ForEach(t => Destroy(t.gameObject));
 			ghosts.Clear();
 			Start(false);
@@ -42,7 +42,7 @@ namespace LD47 {
 			Inputs.controls.Game.StartPlaying.RemovePerformListener(StartPlayingLevel);
 			Inputs.controls.Game.StartPlaying.Disable();
 			_camera.MoveToPlayView(false);
-			_playerController.enabled = true;
+			_player.enabled = true;
 			SetPlayingListeners(true);
 			_ui.SetStartLevelInfoVisible(false);
 		}
@@ -51,7 +51,7 @@ namespace LD47 {
 
 		private void SetPlayingListeners(bool enabled) {
 			if (_exit) _exit.onSomethingEntered.SetListenerActive(HandleExitReached, enabled);
-			if (_playerController) _playerController.onDie.SetListenerActive(IntentionalStopLoop, enabled);
+			if (_player) _player.humanoid.onDie.SetListenerActive(IntentionalStopLoop, enabled);
 			Inputs.controls.Game.EndLoop.SetPerformListenerOnce(IntentionalStopLoop, enabled);
 			Inputs.controls.Game.RestartLevel.SetPerformListenerOnce(RestartLevel, enabled);
 			Inputs.controls.Game.RestartLevel.SetEnabled(enabled);
@@ -60,17 +60,20 @@ namespace LD47 {
 
 		private void Reset() {
 			TimeManager.StopLoop(false);
+			foreach (var ghost in ghosts) {
+				ghost.transform.position = _spawn.position;
+				ghost.ResetForNextLoop();
+			}
 			_player.transform.position = _spawn.position;
-			ghosts.ForEach(t => t.ResetForNextLoop());
-			currentRecord = _player.Reinitialize();
-			_playerController.Reinitialize();
-			_playerController.onInput.AddListenerOnce(StartLoop);
+			_player.Reinitialize();
+			_player.onInput.AddListenerOnce(StartLoop);
+			currentRecord = _player.recorder.Reinitialize();
 			Inputs.controls.Game.EndLoop.SetEnabled(false);
 		}
 
 		private void StartLoop() {
 			TimeManager.StartLoop();
-			_playerController.onInput.RemoveListener(StartLoop);
+			_player.onInput.RemoveListener(StartLoop);
 			Inputs.controls.Game.EndLoop.SetEnabled(enabled);
 		}
 

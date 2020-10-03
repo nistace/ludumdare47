@@ -49,6 +49,7 @@ namespace LD47 {
 		private void ResetToInitialPosition() {
 			currentStep = _initialStep;
 			currentLerp = _initialLerpToNextStep;
+			waitAtCurrentStep = 0;
 			UpdatePosition();
 		}
 

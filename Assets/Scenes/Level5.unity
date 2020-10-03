@@ -735,18 +735,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 705844973}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &712990481 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5628970336934389068, guid: 2b40880e88206904e9d79fb96d003688,
-    type: 3}
-  m_PrefabInstance: {fileID: 2125819424}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afb8a0b9cb945bfad0fd90906fbb497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &712990485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6591716939226361566, guid: 2b40880e88206904e9d79fb96d003688,
@@ -2404,7 +2392,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 712990481}
+      objectReference: {fileID: 2125819425}
     - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: _spawn
