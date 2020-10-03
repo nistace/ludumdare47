@@ -9,4 +9,10 @@ public class FollowTarget : MonoBehaviour {
 		if (!_target) return;
 		transform.position = Vector3.SmoothDamp(transform.position, _target.position, ref _currentVelocity, _smooth);
 	}
+
+	[ContextMenu("Jump to target")]
+	private void JumpToTarget() {
+		if (!_target) return;
+		transform.position = _target.position;
+	}
 }

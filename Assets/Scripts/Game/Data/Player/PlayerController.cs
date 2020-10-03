@@ -9,7 +9,10 @@ namespace LD47 {
 		[SerializeField] protected float            _speed;
 		[SerializeField] protected float            _jumpForce = 50;
 		[SerializeField] protected OnGroundChecker  _onGroundChecker;
-		[SerializeField] protected float            _minTransformY = -5;
+		[SerializeField] protected float            _minTransformY           = -5;
+		[SerializeField] protected float            _speedSmoothnessOnGround = .2f;
+		[SerializeField] protected float            _speedSmoothnessInAir    = 1f;
+		[SerializeField] protected Vector3          _acceleration;
 
 		private Vector3 movementInput       { get; set; }
 		private bool    waitForZeroMovement { get; set; } = true;
@@ -19,7 +22,12 @@ namespace LD47 {
 
 		private void Start() => SetListeners(true);
 		private void OnDestroy() => SetListeners(false);
-		private void OnEnable() => SetListenersEnabled(true);
+
+		private void OnEnable() {
+			if (waitForZeroMovement && Inputs.controls.Player.Movement.ReadValue<Vector2>() == Vector2.zero) waitForZeroMovement = false;
+			SetListenersEnabled(true);
+		}
+
 		private void OnDisable() => SetListenersEnabled(false);
 
 		private void SetListeners(bool enabled) {
@@ -50,17 +58,17 @@ namespace LD47 {
 
 		private void FixedUpdate() {
 			if (!CheckAlive()) return;
+			_animator.SetInTheAir(false);
 			if (waitForZeroMovement) return;
-			if (_onGroundChecker.check) {
-				_animator.SetInTheAir(false);
-				_rigidbody.velocity = movementInput.With(y: _rigidbody.velocity.y);
-				if (movementInput != Vector3.zero) transform.forward = movementInput;
-				_animator.SetRunning(movementInput != Vector3.zero);
-			}
-			else {
-				_animator.SetInTheAir(true);
-				_animator.SetRunning(false);
-			}
+			_animator.SetInTheAir(!_onGroundChecker.check);
+			_animator.SetRunning(_onGroundChecker.check && movementInput != Vector3.zero);
+			var currentVelocity = _rigidbody.velocity;
+			var expectedMovement = Vector3.SmoothDamp(currentVelocity, movementInput.With(y: currentVelocity.y), ref _acceleration,
+				_onGroundChecker.check ? _speedSmoothnessOnGround : _speedSmoothnessInAir);
+			_rigidbody.velocity = !_onGroundChecker.check && _rigidbody.SweepTest(expectedMovement.With(y: 0), out _, expectedMovement.magnitude * Time.fixedDeltaTime)
+				? new Vector3(0, _rigidbody.velocity.y, 0)
+				: expectedMovement;
+			if (movementInput != Vector3.zero) transform.forward = movementInput;
 		}
 
 		private bool CheckAlive() {

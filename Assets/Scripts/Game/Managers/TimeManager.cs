@@ -6,6 +6,8 @@ namespace LD47 {
 		[SerializeField] protected float       _loopTime = 60;
 		private static             TimeManager instance { get; set; }
 
+		private static float previousRunsTime         { get; set; }
+		public static  float allRunsTime              => previousRunsTime + currentLoopTime;
 		private static float startTime                { get; set; }
 		public static  float currentLoopTime          { get; private set; }
 		public static  float currentLoopRemainingTime => instance._loopTime - currentLoopTime;
@@ -14,28 +16,31 @@ namespace LD47 {
 		public static UnityEvent onLoopEnded { get; } = new UnityEvent();
 
 		private void Awake() {
-			instance = this;
-			startTime = 0;
-			currentLoopTime = 0;
-			playing = false;
+			if (!instance) instance = this;
+			if (instance == this) DontDestroyOnLoad(gameObject);
+			else Destroy(gameObject);
 		}
 
 		public static void StartLoop() {
+			currentLoopTime = 0;
 			playing = true;
 			startTime = Time.time;
-			currentLoopTime = 0;
 		}
 
-		public static void StopLoop() {
+		public static void StopLoop(bool notify) {
 			if (!playing) return;
 			playing = false;
-			onLoopEnded.Invoke();
+			previousRunsTime += currentLoopTime;
+			currentLoopTime = 0;
+			if (notify) onLoopEnded.Invoke();
 		}
 
 		private void Update() {
 			if (!playing) return;
 			currentLoopTime = Time.time - startTime;
-			if (currentLoopTime >= _loopTime) StopLoop();
+			if (currentLoopTime >= _loopTime) StopLoop(true);
 		}
+
+		public static void ResetAllRunsTime() => previousRunsTime = 0;
 	}
 }

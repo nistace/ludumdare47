@@ -10,7 +10,7 @@ namespace LD47 {
 
 		private void Awake() => transform = base.transform;
 
-		private void Update() {
+		private void FixedUpdate() {
 			if (!TimeManager.playing) return;
 			ApplyRecordData(TimeManager.currentLoopTime);
 		}

@@ -102,6 +102,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "StartPlaying",
+                    "type": "Button",
+                    "id": "addf591d-ab27-4fc7-93b6-f9451efb9673",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "RestartLevel",
+                    "type": "Button",
+                    "id": "a68d20f0-16a3-4dfe-b603-26c54c11220e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -113,6 +129,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "EndLoop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77f3ce29-19b8-4efd-b1bb-fd5f3eec1d59",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartPlaying",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95e74ccf-f426-4844-8565-2dbea620a554",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RestartLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

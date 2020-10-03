@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbed1e3fb487ac488b036b578905956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pressPart: {fileID: 8938260091431639735}
-  _pressCheck: {fileID: 0}
-  _onPosition: {x: 0, y: 0, z: 0}
+  _pressPart: {fileID: 7666768196611290465}
+  _pressCheck: {fileID: 5149012204089309743}
+  _onPosition: {x: 0, y: 0.3, z: 0}
   _offPosition: {x: 0, y: 0.47, z: 0}
   _requirePowerMechanism: {fileID: 20723854441115444}
   _providePowerMechanism: {fileID: 6188235504782733285}

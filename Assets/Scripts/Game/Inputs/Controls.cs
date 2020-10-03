@@ -117,6 +117,22 @@ namespace LD47
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""StartPlaying"",
+                    ""type"": ""Button"",
+                    ""id"": ""addf591d-ab27-4fc7-93b6-f9451efb9673"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""RestartLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""a68d20f0-16a3-4dfe-b603-26c54c11220e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -128,6 +144,28 @@ namespace LD47
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""EndLoop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77f3ce29-19b8-4efd-b1bb-fd5f3eec1d59"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartPlaying"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95e74ccf-f426-4844-8565-2dbea620a554"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -143,6 +181,8 @@ namespace LD47
             // Game
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
             m_Game_EndLoop = m_Game.FindAction("EndLoop", throwIfNotFound: true);
+            m_Game_StartPlaying = m_Game.FindAction("StartPlaying", throwIfNotFound: true);
+            m_Game_RestartLevel = m_Game.FindAction("RestartLevel", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -234,11 +274,15 @@ namespace LD47
         private readonly InputActionMap m_Game;
         private IGameActions m_GameActionsCallbackInterface;
         private readonly InputAction m_Game_EndLoop;
+        private readonly InputAction m_Game_StartPlaying;
+        private readonly InputAction m_Game_RestartLevel;
         public struct GameActions
         {
             private @Controls m_Wrapper;
             public GameActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @EndLoop => m_Wrapper.m_Game_EndLoop;
+            public InputAction @StartPlaying => m_Wrapper.m_Game_StartPlaying;
+            public InputAction @RestartLevel => m_Wrapper.m_Game_RestartLevel;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -251,6 +295,12 @@ namespace LD47
                     @EndLoop.started -= m_Wrapper.m_GameActionsCallbackInterface.OnEndLoop;
                     @EndLoop.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnEndLoop;
                     @EndLoop.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnEndLoop;
+                    @StartPlaying.started -= m_Wrapper.m_GameActionsCallbackInterface.OnStartPlaying;
+                    @StartPlaying.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnStartPlaying;
+                    @StartPlaying.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnStartPlaying;
+                    @RestartLevel.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRestartLevel;
+                    @RestartLevel.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRestartLevel;
+                    @RestartLevel.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRestartLevel;
                 }
                 m_Wrapper.m_GameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -258,6 +308,12 @@ namespace LD47
                     @EndLoop.started += instance.OnEndLoop;
                     @EndLoop.performed += instance.OnEndLoop;
                     @EndLoop.canceled += instance.OnEndLoop;
+                    @StartPlaying.started += instance.OnStartPlaying;
+                    @StartPlaying.performed += instance.OnStartPlaying;
+                    @StartPlaying.canceled += instance.OnStartPlaying;
+                    @RestartLevel.started += instance.OnRestartLevel;
+                    @RestartLevel.performed += instance.OnRestartLevel;
+                    @RestartLevel.canceled += instance.OnRestartLevel;
                 }
             }
         }
@@ -270,6 +326,8 @@ namespace LD47
         public interface IGameActions
         {
             void OnEndLoop(InputAction.CallbackContext context);
+            void OnStartPlaying(InputAction.CallbackContext context);
+            void OnRestartLevel(InputAction.CallbackContext context);
         }
     }
 }
