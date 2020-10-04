@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace LD47 {
-	public class CheckTriggerEnter : MonoBehaviour {
+	public class CheckTriggerEnter : MonoBehaviour, IWorldReinitializable {
 		private HashSet<GameObject> objectsInTrigger { get; } = new HashSet<GameObject>();
 		public  bool                isSomethingThere => objectsInTrigger.Count > 0;
 

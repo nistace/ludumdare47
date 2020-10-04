@@ -309,7 +309,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &712990485 stripped
 Transform:
@@ -659,7 +659,7 @@ PrefabInstance:
     - target: {fileID: 7838930337197347564, guid: 9df3630bf9239eb47ae8032cb1165de6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7838930337197347564, guid: 9df3630bf9239eb47ae8032cb1165de6,
         type: 3}
@@ -790,7 +790,7 @@ PrefabInstance:
     - target: {fileID: 6591716939226361566, guid: 2b40880e88206904e9d79fb96d003688,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6591716939226361566, guid: 2b40880e88206904e9d79fb96d003688,
         type: 3}
@@ -831,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 2106195644965813936, guid: 2f2386b7a05a27d45a9ae5afb1087c6d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2106195644965813936, guid: 2f2386b7a05a27d45a9ae5afb1087c6d,
         type: 3}
@@ -841,7 +841,7 @@ PrefabInstance:
     - target: {fileID: 2106195644965813936, guid: 2f2386b7a05a27d45a9ae5afb1087c6d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.0100002
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2106195644965813936, guid: 2f2386b7a05a27d45a9ae5afb1087c6d,
         type: 3}
@@ -949,6 +949,11 @@ PrefabInstance:
       value: Time for loops ! Press shift to respawn. A ghost will repeat what you
         just did. Any idea how to use that with this button?
       objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _world
+      value: 
+      objectReference: {fileID: 2816370296184629009}
     - target: {fileID: 4186202518888294148, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1083,6 +1088,12 @@ PrefabInstance:
 --- !u!4 &2816370296184629008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2816370296540939238, guid: 80d565f413667ec47aba0f3766b5ff61,
+    type: 3}
+  m_PrefabInstance: {fileID: 2816370296184629007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2816370296184629009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2816370296540939239, guid: 80d565f413667ec47aba0f3766b5ff61,
     type: 3}
   m_PrefabInstance: {fileID: 2816370296184629007}
   m_PrefabAsset: {fileID: 0}

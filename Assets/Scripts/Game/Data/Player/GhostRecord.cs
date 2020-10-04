@@ -21,7 +21,7 @@ namespace LD47 {
 		public  bool    movementUpdated             { get; private set; }
 
 		public void AddMovementRecord(GhostRecordVector2 record) {
-			if (_movementRecords.Count > 0 && _movementRecords.Last().time == record.time) _movementRecords.RemoveAt(_movementRecords.Count - 1);
+			if (_movementRecords.Count > 0 && _movementRecords.Last().time >= record.time) _movementRecords.RemoveAt(_movementRecords.Count - 1);
 			_movementRecords.Add(record);
 		}
 

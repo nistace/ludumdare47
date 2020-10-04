@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace LD47 {
 	public class GameController : MonoBehaviour {
-		public enum Status {
+		private enum Status {
 			Intro = 0,
 			Game  = 1,
 			Outro = 2
@@ -21,12 +21,15 @@ namespace LD47 {
 		[SerializeField] protected string            _nextScene;
 		[SerializeField] protected CameraStates      _camera;
 		[SerializeField] protected GameUi            _ui;
+		[SerializeField] protected GameObject        _world;
 
-		private List<Ghost> ghosts        { get; } = new List<Ghost>();
-		private GhostRecord currentRecord { get; set; }
-		private Status      status        { get; set; }
+		private List<Ghost>                          ghosts           { get; } = new List<Ghost>();
+		private IReadOnlyList<IWorldReinitializable> reinitializables { get; set; }
+		private GhostRecord                          currentRecord    { get; set; }
+		private Status                               status           { get; set; }
 
 		private void Start() {
+			reinitializables = _world.GetComponentsInChildren<IWorldReinitializable>();
 			_ui.gameScreen.SetPlayer(_player);
 			_ui.outroScreen.onTryAgainClicked.AddListenerOnce(RestartLevel);
 			_ui.outroScreen.onNextLevelClicked.AddListenerOnce(HandleGoToNextLevel);
@@ -78,13 +81,15 @@ namespace LD47 {
 			TimeManager.StopLoop(false);
 			foreach (var ghost in ghosts) {
 				ghost.transform.position = _spawn.position;
+				ghost.transform.forward = Vector3.forward;
 				ghost.Reinitialize();
 			}
 			_player.transform.position = _spawn.position;
+			_player.transform.forward = Vector3.forward;
 			_player.Reinitialize();
 			_player.humanoid.StopDancing();
 			_player.onInput.AddListenerOnce(StartLoop);
-			FindObjectsOfType<CheckTriggerEnter>().ForEach(t => t.Reinitialize());
+			reinitializables.ForEach(t => t.Reinitialize());
 			currentRecord = _player.recorder.Reinitialize();
 			Inputs.controls.Game.EndLoop.SetEnabled(false);
 		}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace LD47 {
-	public class LoopStartFixedPosition : MonoBehaviour {
+	public class LoopStartFixedPosition : MonoBehaviour, IWorldReinitializable {
 		[SerializeField] protected Vector3    _position;
 		[SerializeField] protected Quaternion _rotation;
 		[SerializeField] protected Rigidbody  _rigidbody;
@@ -9,12 +9,7 @@ namespace LD47 {
 
 		private void Awake() => transform = base.transform;
 
-		private void Start() {
-			TimeManager.onLoopEnded.AddListenerOnce(Reinitialize);
-			Reinitialize();
-		}
-
-		private void Reinitialize() {
+		public void Reinitialize() {
 			transform.SetParent(null);
 			transform.position = _position;
 			transform.rotation = _rotation;

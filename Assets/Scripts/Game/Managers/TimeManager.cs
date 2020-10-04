@@ -13,7 +13,8 @@ namespace LD47 {
 		public static  float currentLoopRemainingTime => instance._loopTime - currentLoopTime;
 		public static  bool  playing                  { get; private set; }
 
-		public static UnityEvent onLoopEnded { get; } = new UnityEvent();
+		public static UnityEvent onLoopStarted { get; } = new UnityEvent();
+		public static UnityEvent onLoopEnded   { get; } = new UnityEvent();
 
 		private void Awake() {
 			if (!instance) instance = this;
@@ -25,6 +26,7 @@ namespace LD47 {
 			currentLoopTime = 0;
 			playing = true;
 			startTime = Time.fixedTime;
+			onLoopStarted.Invoke();
 		}
 
 		public static void StopLoop(bool notify) {
@@ -35,7 +37,7 @@ namespace LD47 {
 			if (notify) onLoopEnded.Invoke();
 		}
 
-		private void Update() {
+		private void FixedUpdate() {
 			if (!playing) return;
 			currentLoopTime = Time.fixedTime - startTime;
 			if (currentLoopTime >= _loopTime) StopLoop(true);

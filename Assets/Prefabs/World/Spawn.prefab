@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 7244352751000490088, guid: ce7257cd49347bf4e8e50a5521b095a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7244352751000490088, guid: ce7257cd49347bf4e8e50a5521b095a6,
         type: 3}
@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 7244352751000490089, guid: ce7257cd49347bf4e8e50a5521b095a6,
         type: 3}
       propertyPath: m_Name
-      value: Platform
+      value: Spawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce7257cd49347bf4e8e50a5521b095a6, type: 3}

@@ -24,6 +24,9 @@ namespace LD47 {
 		public PickUpable.Event onObjectPickedUp   { get; } = new PickUpable.Event();
 		public UnityEvent       onObjectDropped    { get; } = new UnityEvent();
 
+		public new Transform transform { get; private set; }
+		private void Awake() => transform = base.transform;
+
 		private void Start() => SetListeners(true);
 		private void OnDestroy() => SetListeners(false);
 

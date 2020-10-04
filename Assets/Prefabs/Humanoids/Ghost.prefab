@@ -16,6 +16,8 @@ MonoBehaviour:
   _record:
     _movementRecords: []
     _jumpRecords: []
+    _pickUpOrDropRecords: []
+    _throwRecords: []
 --- !u!1001 &3375027426303557944
 PrefabInstance:
   m_ObjectHideFlags: 0
