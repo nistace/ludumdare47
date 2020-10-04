@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5766170205119574076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6591716939226361537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eb94913d26843cd806372d048cde8d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _record:
-    _movementRecords: []
-    _jumpRecords: []
-    _pickUpOrDropRecords: []
-    _throwRecords: []
 --- !u!114 &8566674297486548317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _humanoid: {fileID: 4328318900911671070}
-  _recorder: {fileID: 5766170205119574076}
   _victoryClips:
   - {fileID: 8300000, guid: ae505bf58ff470148baeb8653cafd8c0, type: 3}
   - {fileID: 8300000, guid: 75b18bfe789143f4bba831fcd843bcab, type: 3}

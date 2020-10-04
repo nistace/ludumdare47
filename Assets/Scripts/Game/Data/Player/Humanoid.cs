@@ -26,7 +26,7 @@ namespace LD47 {
 
 		public UnityEvent onDie { get; } = new UnityEvent();
 
-		private void FixedUpdate() {
+		public void ManualUpdate() {
 			if (dead) return;
 			CheckAlive();
 			if (dead) return;
@@ -44,6 +44,7 @@ namespace LD47 {
 		}
 
 		private Vector3 CheckImminentCollisionWithWalls(Vector3 expectedMovement) {
+			if (expectedMovement.With(y: 0) == Vector3.zero) return expectedMovement;
 			if (_onGroundChecker.check) return expectedMovement;
 			if (!_rigidbody.SweepTest(expectedMovement.With(y: 0), out var hit, expectedMovement.magnitude * Time.fixedDeltaTime)) return expectedMovement;
 			if (hit.collider.gameObject.layer != LayerMask.GetMask("Ground")) return expectedMovement;
@@ -100,6 +101,8 @@ namespace LD47 {
 			_rigidbody.angularVelocity = Vector3.zero;
 			if (_pickedObject) _pickedObject.Throw(Vector3.zero);
 			_pickedObject = null;
+			_animator.SetInTheAir(false);
+			_animator.SetRunning(false);
 			_animator.SetCarriesObject(false);
 			_pickablesArea.Reinitialize();
 		}

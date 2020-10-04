@@ -6,17 +6,17 @@ using Utils.Audio;
 
 namespace LD47 {
 	public class PlayerController : MonoBehaviour {
-		[SerializeField] protected Humanoid            _humanoid;
-		[SerializeField] protected PlayerInputRecorder _recorder;
+		[SerializeField] protected Humanoid _humanoid;
 
 		[Header("Audio")] [SerializeField] protected AudioClip[] _victoryClips;
 		[SerializeField]                   protected AudioClip[] _jumpClips;
 		[SerializeField]                   protected AudioClip[] _pickUpClips;
 		[SerializeField]                   protected AudioClip[] _throwClips;
 
-		public  Humanoid            humanoid      => _humanoid;
-		private PickUpableChecker   pickablesArea => humanoid.pickablesArea;
-		public  PlayerInputRecorder recorder      => _recorder;
+		public     Humanoid          humanoid      => _humanoid;
+		private    PickUpableChecker pickablesArea => humanoid.pickablesArea;
+		public new Transform         transform     { get; private set; }
+		public     GhostRecord       record        { get; private set; }
 
 		public UnityEvent       onInput            { get; } = new UnityEvent();
 		public PickUpable.Event onObjectPickable   { get; } = new PickUpable.Event();
@@ -24,7 +24,6 @@ namespace LD47 {
 		public PickUpable.Event onObjectPickedUp   { get; } = new PickUpable.Event();
 		public UnityEvent       onObjectDropped    { get; } = new UnityEvent();
 
-		public new Transform transform { get; private set; }
 		private void Awake() => transform = base.transform;
 
 		private void Start() => SetListeners(true);
@@ -46,6 +45,18 @@ namespace LD47 {
 			Inputs.controls.Player.Throw.SetPerformListenerOnce(HandleThrow, enabled);
 		}
 
+		private static void SetListenersEnabled(bool enabled) {
+			Inputs.controls.Player.Movement.SetEnabled(enabled);
+			Inputs.controls.Player.Jump.SetEnabled(enabled);
+			Inputs.controls.Player.PickUp.SetEnabled(enabled);
+			Inputs.controls.Player.Throw.SetEnabled(enabled);
+		}
+
+		private void FixedUpdate() {
+			if (!TimeManager.playing) return;
+			_humanoid.ManualUpdate();
+		}
+
 		private void HandleObjectPickable(PickUpable pickable) {
 			if (_humanoid.pickedObject) return;
 			onObjectPickable.Invoke(pickable);
@@ -58,14 +69,8 @@ namespace LD47 {
 			else onNoObjectPickable.Invoke();
 		}
 
-		private static void SetListenersEnabled(bool enabled) {
-			Inputs.controls.Player.Movement.SetEnabled(enabled);
-			Inputs.controls.Player.Jump.SetEnabled(enabled);
-			Inputs.controls.Player.PickUp.SetEnabled(enabled);
-			Inputs.controls.Player.Throw.SetEnabled(enabled);
-		}
-
 		private void HandleJump(InputAction.CallbackContext obj) {
+			record.AddJumpRecord(TimeManager.currentLoopTime);
 			if (!_humanoid.Jump()) return;
 			PlayRandomClip(_jumpClips);
 			onInput.Invoke();
@@ -77,11 +82,13 @@ namespace LD47 {
 				if (movementInput == Vector2.zero) _humanoid.waitForZeroMovement = false;
 				return;
 			}
+			record.AddMovementRecord(new GhostRecordVector2(TimeManager.currentLoopTime, movementInput));
 			_humanoid.SetMovement(movementInput);
 			if (movementInput != Vector2.zero) onInput.Invoke();
 		}
 
 		private void HandlePickUp(InputAction.CallbackContext obj) {
+			record.AddPickUpOrDropRecord(TimeManager.currentLoopTime);
 			if (!_humanoid.PickUpOrDrop()) return;
 			onInput.Invoke();
 			if (humanoid.pickedObject) {
@@ -96,6 +103,7 @@ namespace LD47 {
 		}
 
 		private void HandleThrow(InputAction.CallbackContext obj) {
+			record.AddThrowRecord(TimeManager.currentLoopTime);
 			if (!_humanoid.Throw()) return;
 			PlayRandomClip(_throwClips);
 			onInput.Invoke();
@@ -104,6 +112,7 @@ namespace LD47 {
 		}
 
 		public void Reinitialize() {
+			record = new GhostRecord();
 			_humanoid.Reinitialize();
 		}
 

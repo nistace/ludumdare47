@@ -90,7 +90,6 @@ namespace LD47 {
 			_player.humanoid.StopDancing();
 			_player.onInput.AddListenerOnce(StartLoop);
 			reinitializables.ForEach(t => t.Reinitialize());
-			currentRecord = _player.recorder.Reinitialize();
 			Inputs.controls.Game.EndLoop.SetEnabled(false);
 		}
 
@@ -105,12 +104,12 @@ namespace LD47 {
 			status = Status.Outro;
 			TimeManager.StopLoop(false);
 			_ui.ShowOutroScreen(TimeManager.allRunsTime, ghosts.Count + 1, !string.IsNullOrEmpty(_nextScene));
-			_player.HoorayVictory();
-			var playerTransform = _player.transform;
-			playerTransform.position = _exit.transform.position;
-			playerTransform.forward = Vector3.back;
-			_player.humanoid.Dance();
 			_player.enabled = false;
+			_player.Reinitialize();
+			_player.HoorayVictory();
+			_player.transform.position = _exit.transform.position;
+			_player.transform.forward = Vector3.back;
+			_player.humanoid.Dance();
 			_camera.MoveToLevelCompleteView(false);
 			ghosts.ForEach(GhostManager.Pool);
 			ghosts.Clear();
@@ -125,7 +124,7 @@ namespace LD47 {
 
 		private void EndLoop() {
 			var newGhost = GhostManager.Instantiate();
-			newGhost.Initialise(currentRecord);
+			newGhost.Initialise(_player.record);
 			ghosts.Add(newGhost);
 			Reset();
 		}

@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _humanoid: {fileID: 4328318900911671070}
-  _record:
-    _movementRecords: []
-    _jumpRecords: []
-    _pickUpOrDropRecords: []
-    _throwRecords: []
 --- !u!1001 &3375027426303557944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25,6 +20,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7936485186373113690, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936485186373113690, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8479427289921449958, guid: c17c3205df7c7054ebe26db0fbecdaf7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -98,6 +103,16 @@ PrefabInstance:
     - target: {fileID: 8749065666700583224, guid: c17c3205df7c7054ebe26db0fbecdaf7,
         type: 3}
       propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749065666700583224, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749065666700583224, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

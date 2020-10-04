@@ -13,7 +13,9 @@ namespace LD47 {
 		private void OnDisable() => TimeManager.onLoopStarted.RemoveListener(HandleLoopStarted);
 
 		private void FixedUpdate() {
-			if (TimeManager.playing) Progress();
+			if (!TimeManager.playing) return;
+			Progress();
+			_humanoid.ManualUpdate();
 		}
 
 		private void HandleLoopStarted() => Progress();
