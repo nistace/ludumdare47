@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils.Audio;
 
 namespace LD47 {
 	public class HumanoidAnimator : MonoBehaviour {
@@ -12,6 +13,8 @@ namespace LD47 {
 		private static readonly int carriesObjectAnimParam = Animator.StringToHash("CarriesObject");
 		private static readonly int danceAnimParam         = Animator.StringToHash("Dance");
 		private static readonly int dancingAnimParam       = Animator.StringToHash("Dancing");
+
+		[SerializeField] protected AudioClip[] _footStepClips;
 
 		public bool running  => _animator.GetBool(runningAnimParam);
 		public bool inTheAir => _animator.GetBool(inTheAirAnimParam);
@@ -29,5 +32,10 @@ namespace LD47 {
 		}
 
 		public void StopDancing() => _animator.SetBool(dancingAnimParam, false);
+
+		public void OnFootStep() {
+			if (_footStepClips.Length == 0) return;
+			AudioManager.Sfx.Play(_footStepClips.Random());
+		}
 	}
 }

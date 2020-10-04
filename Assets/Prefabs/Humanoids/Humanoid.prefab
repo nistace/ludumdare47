@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 8479427289921449958}
   - component: {fileID: 8479427289921449959}
   - component: {fileID: 268439671461725415}
-  - component: {fileID: 7117447463129139270}
   - component: {fileID: -7870103520694417882}
   m_Layer: 11
   m_Name: Humanoid
@@ -181,19 +180,6 @@ CapsuleCollider:
   m_Height: 1.9098059
   m_Direction: 1
   m_Center: {x: 0, y: 0.96490306, z: 0}
---- !u!114 &7117447463129139270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8479427289921449977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c84576e4f44261b51adb66dc5ae222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 2649928130127730096}
 --- !u!114 &-7870103520694417882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +195,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 8479427289921449959}
   _jumpForce: 500
   _onGroundChecker: {fileID: 5921816032942304831}
-  _animator: {fileID: 7117447463129139270}
+  _animator: {fileID: 8639109931917363578}
   _movementSpeed: 5
   _minTransformY: -5
   _speedSmoothnessOnGround: 0
@@ -220,6 +206,20 @@ MonoBehaviour:
   _pickUpAnchor: {fileID: 6765220556523772271}
   _throwForce: 500
   _throwAngle: 1
+--- !u!114 &8639109931917363578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749812242194208112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c84576e4f44261b51adb66dc5ae222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2649928130127730096}
+  _footStepClips: []
 --- !u!1001 &8479427290404792353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,6 +329,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: b72233641417a9545b00dae618b95624, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebb42fe93517ac44cb9f955fa0307430, type: 3}
+--- !u!1 &8749812242194208112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebb42fe93517ac44cb9f955fa0307430,
+    type: 3}
+  m_PrefabInstance: {fileID: 8479427290404792353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8225335765986037706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebb42fe93517ac44cb9f955fa0307430,

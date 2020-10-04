@@ -100,6 +100,7 @@ namespace LD47 {
 			status = Status.Outro;
 			TimeManager.StopLoop(false);
 			_ui.ShowOutroScreen(TimeManager.allRunsTime, ghosts.Count + 1, !string.IsNullOrEmpty(_nextScene));
+			_player.HoorayVictory();
 			var playerTransform = _player.transform;
 			playerTransform.position = _exit.transform.position;
 			playerTransform.forward = Vector3.back;

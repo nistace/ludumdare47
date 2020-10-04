@@ -27,5 +27,7 @@ namespace LD47 {
 		private static void SetSfxVolume(float value) => AudioManager.Sfx.volume = value;
 
 		private void StartGame() => SceneManager.LoadScene(_firstSceneName);
+
+		[ContextMenu("Find all dancers")] private void FindAllAnimators() => _dancers = FindObjectsOfType<HumanoidAnimator>();
 	}
 }

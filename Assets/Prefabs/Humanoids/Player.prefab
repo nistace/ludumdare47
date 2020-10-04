@@ -31,6 +31,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _humanoid: {fileID: 4328318900911671070}
   _recorder: {fileID: 5766170205119574076}
+  _victoryClips:
+  - {fileID: 8300000, guid: ae505bf58ff470148baeb8653cafd8c0, type: 3}
+  - {fileID: 8300000, guid: 75b18bfe789143f4bba831fcd843bcab, type: 3}
+  - {fileID: 8300000, guid: 952453fda9d23a14aa083ace5fcc3ac8, type: 3}
+  - {fileID: 8300000, guid: df14bf970227cb045b80a7e9cbac3dba, type: 3}
+  _jumpClips:
+  - {fileID: 8300000, guid: c298a57b3ae1c204e9fdb9be1c155c84, type: 3}
+  - {fileID: 8300000, guid: bbca87797949f384397c12f4c3e39996, type: 3}
+  _pickUpClips:
+  - {fileID: 8300000, guid: daed05541712aa74ba61a817e10e1706, type: 3}
+  - {fileID: 8300000, guid: 64f7ec1de5098b342b6410f23f1dce62, type: 3}
+  - {fileID: 8300000, guid: 5c139eb36984bfb48901efc14c854439, type: 3}
+  _throwClips:
+  - {fileID: 8300000, guid: 0068c689731df27468ec0657a9abff3e, type: 3}
+  - {fileID: 8300000, guid: 6506dff9443e2cd4d94435583d0733d4, type: 3}
 --- !u!1001 &3375027426303557944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +118,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b496f157073aca48aca3bce13f939d8, type: 3}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9f8a267610cba4c4884d66d82fce3ba9, type: 3}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 097e3ea9adedd6a42b16fdda8899c110, type: 3}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9affad9c2ca3a7d40912232bd6fb9594, type: 3}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7feae2a8074f6464580213f559f53197, type: 3}
+    - target: {fileID: 8639109931917363578, guid: c17c3205df7c7054ebe26db0fbecdaf7,
+        type: 3}
+      propertyPath: _footStepClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: d66ef9418363cda4baa4619315008c82, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c17c3205df7c7054ebe26db0fbecdaf7, type: 3}
 --- !u!1 &6591716939226361537 stripped

@@ -1,11 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Utils.Audio;
 
 namespace LD47 {
 	public class PlayerController : MonoBehaviour {
 		[SerializeField] protected Humanoid            _humanoid;
 		[SerializeField] protected PlayerInputRecorder _recorder;
+
+		[Header("Audio")] [SerializeField] protected AudioClip[] _victoryClips;
+		[SerializeField]                   protected AudioClip[] _jumpClips;
+		[SerializeField]                   protected AudioClip[] _pickUpClips;
+		[SerializeField]                   protected AudioClip[] _throwClips;
 
 		public  Humanoid            humanoid      => _humanoid;
 		private PickUpableChecker   pickablesArea => humanoid.pickablesArea;
@@ -56,7 +63,9 @@ namespace LD47 {
 		}
 
 		private void HandleJump(InputAction.CallbackContext obj) {
-			if (_humanoid.Jump()) onInput.Invoke();
+			if (!_humanoid.Jump()) return;
+			PlayRandomClip(_jumpClips);
+			onInput.Invoke();
 		}
 
 		private void HandleMovement(InputAction.CallbackContext obj) {
@@ -73,6 +82,7 @@ namespace LD47 {
 			if (!_humanoid.PickUpOrDrop()) return;
 			onInput.Invoke();
 			if (humanoid.pickedObject) {
+				PlayRandomClip(_pickUpClips);
 				onObjectPickedUp.Invoke(humanoid.pickedObject);
 				onNoObjectPickable.Invoke();
 			}
@@ -84,6 +94,7 @@ namespace LD47 {
 
 		private void HandleThrow(InputAction.CallbackContext obj) {
 			if (!_humanoid.Throw()) return;
+			PlayRandomClip(_throwClips);
 			onInput.Invoke();
 			onObjectDropped.Invoke();
 			if (pickablesArea.anyPickable) onObjectPickable.Invoke(pickablesArea.any);
@@ -91,6 +102,12 @@ namespace LD47 {
 
 		public void Reinitialize() {
 			_humanoid.Reinitialize();
+		}
+
+		public void HoorayVictory() => PlayRandomClip(_victoryClips);
+
+		private static void PlayRandomClip(IReadOnlyCollection<AudioClip> clips) {
+			if (clips != null && clips.Count > 0) AudioManager.Sfx.Play(clips.Random());
 		}
 	}
 }

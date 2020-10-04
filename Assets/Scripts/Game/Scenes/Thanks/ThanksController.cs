@@ -15,5 +15,7 @@ namespace LD47 {
 			_gotoMenuDelay -= Time.deltaTime;
 			if (_gotoMenuDelay <= 0) SceneManager.LoadSceneAsync("Menu");
 		}
+
+		[ContextMenu("Find all dancers")] private void FindAllAnimators() => _dancers = FindObjectsOfType<HumanoidAnimator>();
 	}
 }
