@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1862,11 +1862,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2048506058100251059, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2048506058100251059, guid: 4baf58432e2dc734a9b9e6be08aefc38,
-        type: 3}
       propertyPath: m_LocalPosition.y
       value: 5
       objectReference: {fileID: 0}
@@ -1933,7 +1928,7 @@ PrefabInstance:
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
       propertyPath: _steps.Array.data[0].z
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
@@ -1948,7 +1943,7 @@ PrefabInstance:
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
       propertyPath: _steps.Array.data[1].z
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
@@ -2787,7 +2782,7 @@ PrefabInstance:
     - target: {fileID: 2048506058100251059, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5058002443615734234, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
@@ -2842,7 +2837,7 @@ PrefabInstance:
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
       propertyPath: _steps.Array.data[0].z
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
@@ -2852,7 +2847,7 @@ PrefabInstance:
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
       propertyPath: _steps.Array.data[1].z
-      value: -6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6334400900801210309, guid: 4baf58432e2dc734a9b9e6be08aefc38,
         type: 3}
