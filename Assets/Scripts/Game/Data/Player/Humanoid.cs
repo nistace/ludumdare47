@@ -27,9 +27,7 @@ namespace LD47 {
 		public UnityEvent onDie { get; } = new UnityEvent();
 
 		public void ManualUpdate() {
-			if (dead) return;
-			CheckAlive();
-			if (dead) return;
+			if (dead || !CheckAlive()) return;
 			if (waitForZeroMovement) {
 				_animator.SetInTheAir(false);
 				return;
@@ -88,10 +86,11 @@ namespace LD47 {
 			_pickedObject = null;
 		}
 
-		private void CheckAlive() {
-			if (transform.position.y >= _minTransformY) return;
+		private bool CheckAlive() {
+			if (transform.position.y >= _minTransformY) return true;
 			dead = true;
 			onDie.Invoke();
+			return false;
 		}
 
 		public void Reinitialize() {

@@ -114,6 +114,7 @@ namespace LD47 {
 		public void Reinitialize() {
 			record = new GhostRecord();
 			_humanoid.Reinitialize();
+			onObjectDropped.Invoke();
 		}
 
 		public void HoorayVictory() => PlayRandomClip(_victoryClips);
