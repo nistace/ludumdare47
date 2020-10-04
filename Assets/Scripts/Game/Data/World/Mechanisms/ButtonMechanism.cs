@@ -1,5 +1,6 @@
 ﻿using LD47;
 using UnityEngine;
+using Utils.Audio;
 
 public class ButtonMechanism : MonoBehaviour {
 	[SerializeField] protected Transform             _pressPart;
@@ -9,6 +10,10 @@ public class ButtonMechanism : MonoBehaviour {
 	[SerializeField] protected RequirePowerMechanism _requirePowerMechanism;
 	[SerializeField] protected ProvidePowerMechanism _providePowerMechanism;
 	[SerializeField] protected Light                 _buttonLight;
+	[SerializeField] protected AudioClip             _activateAudioClip;
+	[SerializeField] protected AudioClip             _deactivateAudioClip;
+
+	private bool active { get; set; }
 
 	private void Start() {
 		_requirePowerMechanism.onMechanismPowerChanged.AddListenerOnce(RefreshProvider);
@@ -20,9 +25,11 @@ public class ButtonMechanism : MonoBehaviour {
 	private void RefreshProvider(bool _) => RefreshProvider();
 
 	private void RefreshProvider() {
-		var active = _pressCheck.isSomethingThere && _requirePowerMechanism.isPowerProvided;
-		_buttonLight.enabled = active;
-		_pressPart.localPosition = active ? _onPosition : _offPosition;
-		_providePowerMechanism.SetProvidingPower(active);
+		var newActive = _pressCheck.isSomethingThere && _requirePowerMechanism.isPowerProvided;
+		_buttonLight.enabled = newActive;
+		_pressPart.localPosition = newActive ? _onPosition : _offPosition;
+		_providePowerMechanism.SetProvidingPower(newActive);
+		if (active != newActive) AudioManager.Sfx.Play(newActive ? _activateAudioClip : _deactivateAudioClip);
+		active = newActive;
 	}
 }

@@ -202,6 +202,9 @@ MonoBehaviour:
   _requirePowerMechanism: {fileID: 20723854441115444}
   _providePowerMechanism: {fileID: 6188235504782733285}
   _buttonLight: {fileID: 2132272556}
+  _activateAudioClip: {fileID: 8300000, guid: ebfbe1b7f9247d24db911912bd7e25fd, type: 3}
+  _deactivateAudioClip: {fileID: 8300000, guid: 915691889ebfe5c4f9d1062bbef45618,
+    type: 3}
 --- !u!114 &20723854441115444
 MonoBehaviour:
   m_ObjectHideFlags: 0
