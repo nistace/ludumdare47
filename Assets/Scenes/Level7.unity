@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -971,7 +971,7 @@ PrefabInstance:
     - target: {fileID: 4299445947616228171, guid: 474164efdf08e0f44a0a654ce34ae831,
         type: 3}
       propertyPath: _position.x
-      value: 14.37
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4299445947616228171, guid: 474164efdf08e0f44a0a654ce34ae831,
         type: 3}
@@ -981,7 +981,7 @@ PrefabInstance:
     - target: {fileID: 4299445947616228171, guid: 474164efdf08e0f44a0a654ce34ae831,
         type: 3}
       propertyPath: _position.z
-      value: 15.42
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 4299445947616228214, guid: 474164efdf08e0f44a0a654ce34ae831,
         type: 3}
@@ -1990,7 +1990,17 @@ PrefabInstance:
     - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: _nextScene
-      value: Level7
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelName
+      value: Level eight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelHint
+      value: Did you know that your can THROW them? Respectively F.
       objectReference: {fileID: 0}
     - target: {fileID: 4186202518888294148, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
@@ -2591,6 +2601,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650270579931476201, guid: 9df3630bf9239eb47ae8032cb1165de6,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656127210892675023, guid: 9df3630bf9239eb47ae8032cb1165de6,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656127210892675023, guid: 9df3630bf9239eb47ae8032cb1165de6,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656127210892675023, guid: 9df3630bf9239eb47ae8032cb1165de6,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656127210892675023, guid: 9df3630bf9239eb47ae8032cb1165de6,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656127210892675023, guid: 9df3630bf9239eb47ae8032cb1165de6,
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0

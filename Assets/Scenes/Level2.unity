@@ -914,6 +914,17 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1755774924}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelName
+      value: Level three
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelHint
+      value: Some devices require electricity to function. This platform is already
+        connected !
+      objectReference: {fileID: 0}
     - target: {fileID: 4186202518888294148, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: m_LocalPosition.x

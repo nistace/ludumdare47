@@ -4,6 +4,7 @@ namespace LD47.Camera {
 	public class CameraStates : MonoBehaviour {
 		[SerializeField] protected Transform _aerialView;
 		[SerializeField] protected Transform _playView;
+		[SerializeField] protected Transform _levelCompleteView;
 		[SerializeField] protected float     _transitionTime = .5f;
 
 		private new Transform transform { get; set; }
@@ -12,6 +13,7 @@ namespace LD47.Camera {
 
 		public void MoveToPlayView(bool jump) => MoveTo(_playView, jump);
 		public void MoveToAerialView(bool jump) => MoveTo(_aerialView, jump);
+		public void MoveToLevelCompleteView(bool jump) => MoveTo(_levelCompleteView, jump);
 
 		private void Awake() {
 			transform = base.transform;
@@ -48,6 +50,13 @@ namespace LD47.Camera {
 			_playView.rotation = base.transform.rotation;
 		}
 
+		[ContextMenu("Set level complete view at current position")]
+		private void SetLevelCompleteViewAtCurrentPosition() {
+			if (!_levelCompleteView) _levelCompleteView = new GameObject("LevelCompleteView").ParentedTo(base.transform.parent).transform;
+			_levelCompleteView.position = base.transform.position;
+			_levelCompleteView.rotation = base.transform.rotation;
+		}
+
 		[ContextMenu("Move to aerial view")]
 		private void MoveToAerialView() {
 			if (!_aerialView) return;
@@ -60,6 +69,13 @@ namespace LD47.Camera {
 			if (!_playView) return;
 			base.transform.position = _playView.position;
 			base.transform.rotation = _playView.rotation;
+		}
+
+		[ContextMenu("Move to level complete view")]
+		private void MoveToLevelCompleteView() {
+			if (!_levelCompleteView) return;
+			base.transform.position = _levelCompleteView.position;
+			base.transform.rotation = _levelCompleteView.rotation;
 		}
 	}
 }

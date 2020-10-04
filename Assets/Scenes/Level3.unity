@@ -938,6 +938,17 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 2074748405}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelName
+      value: Level four
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelHint
+      value: Time for loops ! Press shift to respawn. A ghost will repeat what you
+        just did. Any idea how to use that with this button?
+      objectReference: {fileID: 0}
     - target: {fileID: 4186202518888294148, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -103,5 +103,8 @@ namespace LD47 {
 			_animator.SetCarriesObject(false);
 			_pickablesArea.Reinitialize();
 		}
+
+		public void Dance() => _animator.Dance();
+		public void StopDancing() => _animator.StopDancing();
 	}
 }

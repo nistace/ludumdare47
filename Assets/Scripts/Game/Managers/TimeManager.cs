@@ -42,5 +42,7 @@ namespace LD47 {
 		}
 
 		public static void ResetAllRunsTime() => previousRunsTime = 0;
+
+		public static string DisplayTime(float time) => $"{(time > 60 ? $"{(int) (time / 60)}:" : "")}{(int) (time % 60):00}.{(int) (time % 1 * 1000):000}";
 	}
 }

@@ -10,6 +10,8 @@ namespace LD47 {
 		private static readonly int pickUpAnimParam        = Animator.StringToHash("PickUp");
 		private static readonly int throwAnimParam         = Animator.StringToHash("Throw");
 		private static readonly int carriesObjectAnimParam = Animator.StringToHash("CarriesObject");
+		private static readonly int danceAnimParam         = Animator.StringToHash("Dance");
+		private static readonly int dancingAnimParam       = Animator.StringToHash("Dancing");
 
 		public bool running  => _animator.GetBool(runningAnimParam);
 		public bool inTheAir => _animator.GetBool(inTheAirAnimParam);
@@ -20,5 +22,12 @@ namespace LD47 {
 		public void SetPickUp() => _animator.SetTrigger(pickUpAnimParam);
 		public void SetThrow() => _animator.SetTrigger(throwAnimParam);
 		public void SetCarriesObject(bool carry) => _animator.SetBool(carriesObjectAnimParam, carry);
+
+		public void Dance() {
+			_animator.SetBool(dancingAnimParam, true);
+			_animator.SetTrigger(danceAnimParam);
+		}
+
+		public void StopDancing() => _animator.SetBool(dancingAnimParam, false);
 	}
 }

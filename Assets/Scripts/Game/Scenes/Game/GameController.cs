@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 
 namespace LD47 {
 	public class GameController : MonoBehaviour {
+		public enum Status {
+			Intro = 0,
+			Game  = 1,
+			Outro = 2
+		}
+
+		[SerializeField] protected string            _levelName;
+		[SerializeField] protected string            _levelHint;
 		[SerializeField] protected PlayerController  _player;
 		[SerializeField] protected Transform         _spawn;
 		[SerializeField] protected CheckTriggerEnter _exit;
@@ -16,10 +24,13 @@ namespace LD47 {
 
 		private List<Ghost> ghosts        { get; } = new List<Ghost>();
 		private GhostRecord currentRecord { get; set; }
+		private Status      status        { get; set; }
 
 		private void Start() {
+			_ui.gameScreen.SetPlayer(_player);
+			_ui.outroScreen.onTryAgainClicked.AddListenerOnce(RestartLevel);
+			_ui.outroScreen.onNextLevelClicked.AddListenerOnce(HandleGoToNextLevel);
 			Start(true);
-			_ui.SetPlayer(_player);
 		}
 
 		private void Start(bool first) {
@@ -27,12 +38,15 @@ namespace LD47 {
 			_camera.MoveToAerialView(first);
 			Reset();
 			TimeManager.ResetAllRunsTime();
-			_ui.SetStartLevelInfoVisible(true);
+			_ui.ShowIntroScreen(_levelName, _levelHint);
+			status = Status.Intro;
 			Inputs.controls.Game.StartPlaying.AddPerformListenerOnce(StartPlayingLevel);
 			Inputs.controls.Game.StartPlaying.Enable();
 		}
 
-		private void RestartLevel(InputAction.CallbackContext obj) {
+		private void RestartLevel(InputAction.CallbackContext obj) => RestartLevel();
+
+		private void RestartLevel() {
 			TimeManager.StopLoop(true);
 			ghosts.ForEach(GhostManager.Pool);
 			ghosts.Clear();
@@ -40,12 +54,13 @@ namespace LD47 {
 		}
 
 		private void StartPlayingLevel(InputAction.CallbackContext obj) {
+			status = Status.Game;
 			Inputs.controls.Game.StartPlaying.RemovePerformListener(StartPlayingLevel);
 			Inputs.controls.Game.StartPlaying.Disable();
 			_camera.MoveToPlayView(false);
 			_player.enabled = true;
 			SetPlayingListeners(true);
-			_ui.SetStartLevelInfoVisible(false);
+			_ui.ShowGameScreen();
 		}
 
 		private void OnDestroy() => SetPlayingListeners(false);
@@ -67,6 +82,7 @@ namespace LD47 {
 			}
 			_player.transform.position = _spawn.position;
 			_player.Reinitialize();
+			_player.humanoid.StopDancing();
 			_player.onInput.AddListenerOnce(StartLoop);
 			FindObjectsOfType<CheckTriggerEnter>().ForEach(t => t.Reinitialize());
 			currentRecord = _player.recorder.Reinitialize();
@@ -80,10 +96,22 @@ namespace LD47 {
 		}
 
 		private void HandleExitReached() {
+			if (status == Status.Outro) return;
+			status = Status.Outro;
 			TimeManager.StopLoop(false);
+			_ui.ShowOutroScreen(TimeManager.allRunsTime, ghosts.Count + 1, !string.IsNullOrEmpty(_nextScene));
+			var playerTransform = _player.transform;
+			playerTransform.position = _exit.transform.position;
+			playerTransform.forward = Vector3.back;
+			_player.humanoid.Dance();
+			_player.enabled = false;
+			_camera.MoveToLevelCompleteView(false);
 			ghosts.ForEach(GhostManager.Pool);
 			ghosts.Clear();
-			SceneManager.LoadScene(_nextScene);
+		}
+
+		private void HandleGoToNextLevel() {
+			SceneManager.LoadSceneAsync(string.IsNullOrEmpty(_nextScene) ? "Thanks" : _nextScene);
 		}
 
 		private static void IntentionalStopLoop(InputAction.CallbackContext obj) => TimeManager.StopLoop(true);

@@ -835,6 +835,17 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1813085959}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelName
+      value: Level two
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708277908849886638, guid: 68487d6836c9c114f9fef80e8f45a01c,
+        type: 3}
+      propertyPath: _levelHint
+      value: 'Here''s something you''ve never ever seen before : press Space to jump
+        !'
+      objectReference: {fileID: 0}
     - target: {fileID: 4186202518888294148, guid: 68487d6836c9c114f9fef80e8f45a01c,
         type: 3}
       propertyPath: m_LocalPosition.x
